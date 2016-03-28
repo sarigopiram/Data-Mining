@@ -2,11 +2,13 @@ library(mice)
 library(VIM)
 library(Hmisc)
 
-
+# Read the data
 setwd("D:\\HCUP Project")
 hcupsample <- read.csv(file="masterdataset_sample.csv", header=T, sep=",", row.names=1)
 str(hcupsample)
 
+
+#Data discretization and handling missing vales
 # for age, values -66, -99 are actually missing values
 hcupsample$age[hcupsample$age<0]<-NA
 hcupsample$age<-impute(hcupsample$age,mean)
@@ -2007,12 +2009,11 @@ hcupsample$procccs_231=factor(hcupsample$procccs_231)
 save(hcupsample,file="hcupsample.Rda")
 
 
-#X------------------------DATA LOADING IS COMPLETE--------------------------X
+#X------------------------DATA PREPARATION IS COMPLETE--------------------------X
 
 #hcupmiss<-hcupsample
-
+# visualizing that there are no missing values.
 library(VIM)
-ggr_plot <- aggr(hcupmiss, col=c('white','white'), numbers=TRUE, sortVars=TRUE, labels=names(data), cex.axis=.5, gap=3, ylab=c("Histogram of missing data","Pattern"))
 
 ggr_plot2 <- aggr(hcupsample, col=c('white','red'), numbers=TRUE, sortVars=TRUE, labels=names(data), cex.axis=.5, gap=3, ylab=c("Histogram of missing data","Pattern"))
 
